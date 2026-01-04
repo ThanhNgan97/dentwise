@@ -5,30 +5,32 @@ import { ArrowRight, Zap } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 import { Button } from '../ui/button';
+import { useLanguage } from '@/lib/language-context';
 
 function HowItWorks() {
+    const { dict } = useLanguage();
+
     return (
         <section className="relative py-32 px-6 outline-hidden z-10 max-w-7xl mx-auto">
             {/* HEADER */}
             <div className="text-center mb-20">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/5 to-primary/10 rounded-full border border-primary/10 backdrop-blur-sm mb-6">
                     <Zap className="size-4 text-primary" />
-                    <span className="text-sm font-medium text-primary">Simple Process</span>
+                    <span className="text-sm font-medium text-primary">{dict.howItWorks.badge}</span>
                 </div>
 
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
                     <span className="bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
-                        Three steps to
+                        {dict.howItWorks.titleStart}
                     </span>
                     <br />
                     <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                        better dental health
+                        {dict.howItWorks.titleEnd}
                     </span>
                 </h2>
 
                 <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                    Our streamlined process makes dental care accessible, convenient, and stress-free for
-                    everyone
+                    {dict.howItWorks.description}
                 </p>
             </div>
 
@@ -51,20 +53,18 @@ function HowItWorks() {
                                 <Image src="/audio.png" alt="Voice Chat" width={40} height={40} className="w-14" />
                             </div>
 
-                            <h3 className="text-2xl font-bold mb-4 text-center">Ask Questions</h3>
+                            <h3 className="text-2xl font-bold mb-4 text-center">{dict.howItWorks.steps[0].title}</h3>
                             <p className="text-muted-foreground text-center leading-relaxed mb-6">
-                                Chat with our AI assistant about any dental concerns. Get instant answers about
-                                symptoms, treatments, and oral health tips.
+                                {dict.howItWorks.steps[0].description}
                             </p>
 
                             {/* Feature Pills */}
                             <div className="flex flex-wrap gap-2 justify-center">
-                                <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                                    24/7 Available
-                                </span>
-                                <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                                    Instant Response
-                                </span>
+                                {dict.howItWorks.steps[0].tags.map((tag, i) => (
+                                    <span key={i} className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
+                                        {tag}
+                                    </span>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -82,20 +82,18 @@ function HowItWorks() {
                                 <Image src="/brain.png" alt="AI Brain" width={40} height={40} className="w-14" />
                             </div>
 
-                            <h3 className="text-2xl font-bold mb-4 text-center">Get Expert Advice</h3>
+                            <h3 className="text-2xl font-bold mb-4 text-center">{dict.howItWorks.steps[1].title}</h3>
                             <p className="text-muted-foreground text-center leading-relaxed mb-6">
-                                Receive personalized recommendations based on thousands of dental cases. Our AI
-                                provides professional-grade insights.
+                                {dict.howItWorks.steps[1].description}
                             </p>
 
                             {/* Feature Pills */}
                             <div className="flex flex-wrap gap-2 justify-center">
-                                <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                                    AI-Powered
-                                </span>
-                                <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                                    Personalized
-                                </span>
+                                {dict.howItWorks.steps[1].tags.map((tag, i) => (
+                                    <span key={i} className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
+                                        {tag}
+                                    </span>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -113,20 +111,18 @@ function HowItWorks() {
                                 <Image src="/calendar.png" alt="Calendar" width={40} height={40} className="w-14" />
                             </div>
 
-                            <h3 className="text-2xl font-bold mb-4 text-center">Book & Get Care</h3>
+                            <h3 className="text-2xl font-bold mb-4 text-center">{dict.howItWorks.steps[2].title}</h3>
                             <p className="text-muted-foreground text-center leading-relaxed mb-6">
-                                Schedule with verified dentists and receive comprehensive follow-up care. Track your
-                                progress seamlessly.
+                                {dict.howItWorks.steps[2].description}
                             </p>
 
                             {/* Feature Pills */}
                             <div className="flex flex-wrap gap-2 justify-center">
-                                <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                                    Verified Doctors
-                                </span>
-                                <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                                    Follow-up Care
-                                </span>
+                                {dict.howItWorks.steps[2].tags.map((tag, i) => (
+                                    <span key={i} className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
+                                        {tag}
+                                    </span>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -138,7 +134,7 @@ function HowItWorks() {
                 <SignUpButton mode="modal">
                     <Button size="lg">
                         <ArrowRight className="mr-2 size-5" />
-                        Get started now
+                        {dict.howItWorks.cta}
                     </Button>
                 </SignUpButton>
             </div>

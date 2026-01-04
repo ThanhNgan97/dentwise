@@ -5,8 +5,11 @@ import React from 'react';
 import { Button } from '../ui/button';
 import { CalendarIcon, MicIcon, StarIcon } from 'lucide-react';
 import Image from 'next/image';
+import { useLanguage } from '@/lib/language-context';
 
 function Hero() {
+    const { dict } = useLanguage();
+
     return (
         <section className="relative h-screen flex items-center overflow-hidden pt-20">
             {/* GRID BG  */}
@@ -28,29 +31,28 @@ function Hero() {
                                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-primary/5 rounded-full border border-primary/20 backdrop-blur-sm">
                                     <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
                                     <span className="text-sm font-medium text-primary">
-                                        AI-Powered Dental Assistant
+                                        {dict.hero.badge}
                                     </span>
                                 </div>
 
                                 {/* MAIN HEADING */}
                                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
                                     <span className="bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
-                                        Your dental
+                                        {dict.hero.titleStart}
                                     </span>
                                     <br />
                                     <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                                        questions
+                                        {dict.hero.titleMiddle}
                                     </span>
                                     <br />
                                     <span className="bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
-                                        answered instantly
+                                        {dict.hero.titleEnd}
                                     </span>
                                 </h1>
 
                                 {/* SUBTITLE */}
                                 <p className="text-lg text-muted-foreground leading-relaxed max-w-xl font-medium">
-                                    Chat with our AI dental assistant for instant advice, book smart appointments, and
-                                    get personalized care recommendations. Available 24/7.
+                                    {dict.hero.subtitle}
                                 </p>
                             </div>
 
@@ -59,14 +61,14 @@ function Hero() {
                                 <SignUpButton mode="modal">
                                     <Button size={"lg"}>
                                         <MicIcon className="mr-2 size-5" />
-                                        Try voice agent
+                                        {dict.hero.tryVoice}
                                     </Button>
                                 </SignUpButton>
 
                                 <SignUpButton mode="modal">
                                     <Button size={"lg"} variant={"outline"}>
                                         <CalendarIcon className="mr-2 size-5" />
-                                        Book appointment
+                                        {dict.hero.bookAppointment}
                                     </Button>
                                 </SignUpButton>
                             </div>
@@ -124,8 +126,8 @@ function Hero() {
                                             <span className="text-sm font-bold text-foreground">4.9/5</span>
                                         </div>
                                         <p className="text-sm text-muted-foreground">
-                                            Trusted by{" "}
-                                            <span className="font-semibold text-foreground">1,200+ patients</span>
+                                            {dict.hero.trustedBy}{" "}
+                                            <span className="font-semibold text-foreground">{dict.hero.patients}</span>
                                         </p>
                                     </div>
                                 </div>
