@@ -9,10 +9,12 @@ import Image from "next/image";
 import { Badge } from "../ui/badge";
 import AddDoctorDialog from "./AddDoctorDialog";
 import EditDoctorDialog from "@/components/admin/EditDoctorDialog";
+import { useLanguage } from "@/lib/language-context";
 import { Doctor } from "@prisma/client";
 
 function DoctorsManagement() {
     const { data: doctors = [] } = useGetDoctors();
+    const { dict } = useLanguage();
 
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -35,9 +37,9 @@ function DoctorsManagement() {
                     <div>
                         <CardTitle className="flex items-center gap-2">
                             <StethoscopeIcon className="size-5 text-primary" />
-                            Doctors Management
+                            {dict?.dashboard?.admin?.doctors?.title}
                         </CardTitle>
-                        <CardDescription>Manage and oversee all doctors in your practice</CardDescription>
+                        <CardDescription>{dict?.dashboard?.admin?.doctors?.subtitle}</CardDescription>
                     </div>
 
                     <Button
@@ -45,7 +47,7 @@ function DoctorsManagement() {
                         className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/100"
                     >
                         <PlusIcon className="mr-2 size-4" />
-                        Add Doctor
+                        {dict?.dashboard?.admin?.doctors?.addDoctor}
                     </Button>
                 </CardHeader>
 
@@ -71,7 +73,7 @@ function DoctorsManagement() {
                                             {doctor.speciality}
 
                                             <span className="ml-2 px-2 py-0.5 bg-muted rounded text-xs">
-                                                {doctor.gender === "MALE" ? "Male" : "Female"}
+                                                {doctor.gender === "MALE" ? dict?.dashboard?.admin?.doctors?.male : dict?.dashboard?.admin?.doctors?.female}
                                             </span>
                                         </div>
 
@@ -91,13 +93,13 @@ function DoctorsManagement() {
                                 <div className="flex items-center gap-3">
                                     <div className="text-center">
                                         <div className="font-semibold text-primary">{doctor.appointmentCount}</div>
-                                        <div className="text-xs text-muted-foreground">Appointments</div>
+                                        <div className="text-xs text-muted-foreground">{dict?.dashboard?.admin?.doctors?.appointments}</div>
                                     </div>
 
                                     {doctor.isActive ? (
-                                        <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Active</Badge>
+                                        <Badge className="bg-green-100 text-green-800 hover:bg-green-100">{dict?.dashboard?.admin?.doctors?.active}</Badge>
                                     ) : (
-                                        <Badge variant="secondary">Inactive</Badge>
+                                        <Badge variant="secondary">{dict?.dashboard?.admin?.doctors?.inactive}</Badge>
                                     )}
                                     <Button
                                         size="sm"
@@ -106,7 +108,7 @@ function DoctorsManagement() {
                                         onClick={() => handleEditDoctor(doctor)}
                                     >
                                         <EditIcon className="size-4 mr-1" />
-                                        Edit
+                                        {dict?.dashboard?.admin?.doctors?.edit}
                                     </Button>
                                 </div>
                             </div>

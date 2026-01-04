@@ -16,6 +16,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Button } from "../ui/button";
+import { useLanguage } from "@/lib/language-context";
 
 interface EditDoctorDialogProps {
     isOpen: boolean;
@@ -24,6 +25,7 @@ interface EditDoctorDialogProps {
 }
 
 function EditDoctorDialog({ doctor, isOpen, onClose }: EditDoctorDialogProps) {
+    const { dict } = useLanguage();
     const [editingDoctor, setEditingDoctor] = useState<Doctor | null>(doctor);
 
     const updateDoctorMutation = useUpdateDoctor();
@@ -50,15 +52,15 @@ function EditDoctorDialog({ doctor, isOpen, onClose }: EditDoctorDialogProps) {
         <Dialog open={isOpen} onOpenChange={handleClose}>
             <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
-                    <DialogTitle>Edit Doctor</DialogTitle>
-                    <DialogDescription>Update doctor information and status.</DialogDescription>
+                    <DialogTitle>{dict?.dashboard?.admin?.doctors?.dialog?.editTitle}</DialogTitle>
+                    <DialogDescription>{dict?.dashboard?.admin?.doctors?.dialog?.editSubtitle}</DialogDescription>
                 </DialogHeader>
 
                 {editingDoctor && (
                     <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <Label htmlFor="name">Name</Label>
+                                <Label htmlFor="name">{dict?.dashboard?.admin?.doctors?.dialog?.name}</Label>
                                 <Input
                                     id="name"
                                     value={editingDoctor.name}
@@ -66,7 +68,7 @@ function EditDoctorDialog({ doctor, isOpen, onClose }: EditDoctorDialogProps) {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="speciality">Speciality</Label>
+                                <Label htmlFor="speciality">{dict?.dashboard?.admin?.doctors?.dialog?.speciality}</Label>
                                 <Input
                                     id="speciality"
                                     value={editingDoctor.speciality}
@@ -78,7 +80,7 @@ function EditDoctorDialog({ doctor, isOpen, onClose }: EditDoctorDialogProps) {
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="email">{dict?.dashboard?.admin?.doctors?.dialog?.email}</Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -88,7 +90,7 @@ function EditDoctorDialog({ doctor, isOpen, onClose }: EditDoctorDialogProps) {
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="phone">Phone</Label>
+                            <Label htmlFor="phone">{dict?.dashboard?.admin?.doctors?.dialog?.phone}</Label>
                             <Input
                                 id="phone"
                                 value={editingDoctor.phone}
@@ -99,7 +101,7 @@ function EditDoctorDialog({ doctor, isOpen, onClose }: EditDoctorDialogProps) {
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <Label htmlFor="gender">Gender</Label>
+                                <Label htmlFor="gender">{dict?.dashboard?.admin?.doctors?.dialog?.gender}</Label>
                                 <Select
                                     value={editingDoctor.gender || ""}
                                     onValueChange={(value) =>
@@ -107,16 +109,16 @@ function EditDoctorDialog({ doctor, isOpen, onClose }: EditDoctorDialogProps) {
                                     }
                                 >
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Select gender" />
+                                        <SelectValue placeholder={dict?.dashboard?.admin?.doctors?.dialog?.selectGender} />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="MALE">Male</SelectItem>
-                                        <SelectItem value="FEMALE">Female</SelectItem>
+                                        <SelectItem value="MALE">{dict?.dashboard?.admin?.doctors?.dialog?.male}</SelectItem>
+                                        <SelectItem value="FEMALE">{dict?.dashboard?.admin?.doctors?.dialog?.female}</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="status">Status</Label>
+                                <Label htmlFor="status">{dict?.dashboard?.admin?.doctors?.dialog?.status}</Label>
                                 <Select
                                     value={editingDoctor.isActive ? "active" : "inactive"}
                                     onValueChange={(value) =>
@@ -127,8 +129,8 @@ function EditDoctorDialog({ doctor, isOpen, onClose }: EditDoctorDialogProps) {
                                         <SelectValue />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="active">Active</SelectItem>
-                                        <SelectItem value="inactive">Inactive</SelectItem>
+                                        <SelectItem value="active">{dict?.dashboard?.admin?.doctors?.dialog?.active}</SelectItem>
+                                        <SelectItem value="inactive">{dict?.dashboard?.admin?.doctors?.dialog?.inactive}</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
@@ -138,14 +140,14 @@ function EditDoctorDialog({ doctor, isOpen, onClose }: EditDoctorDialogProps) {
 
                 <DialogFooter>
                     <Button variant="outline" onClick={handleClose}>
-                        Cancel
+                        {dict?.dashboard?.admin?.doctors?.dialog?.cancel}
                     </Button>
                     <Button
                         onClick={handleSave}
                         className="bg-primary hover:bg-primary/90"
                         disabled={updateDoctorMutation.isPending}
                     >
-                        {updateDoctorMutation.isPending ? "Saving..." : "Save Changes"}
+                        {updateDoctorMutation.isPending ? dict?.dashboard?.admin?.doctors?.dialog?.saving : dict?.dashboard?.admin?.doctors?.dialog?.saveChanges}
                     </Button>
                 </DialogFooter>
             </DialogContent>

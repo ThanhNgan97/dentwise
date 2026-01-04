@@ -5,9 +5,12 @@ import { Calendar } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { Button } from "../ui/button";
 
+import { useLanguage } from "@/lib/language-context";
+
 function RecentAppointments() {
     const { data: appointments = [] } = useGetAppointments();
     const updateAppointmentMutation = useUpdateAppointmentStatus();
+    const { dict } = useLanguage();
 
     const handleToggleAppointmentStatus = (appointmentId: string) => {
         const appointment = appointments.find((apt) => apt.id === appointmentId);
@@ -20,9 +23,9 @@ function RecentAppointments() {
     const getStatusBadge = (status: string) => {
         switch (status) {
             case "CONFIRMED":
-                return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Confirmed</Badge>;
+                return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">{dict?.dashboard?.admin?.appointments?.confirmed}</Badge>;
             case "COMPLETED":
-                return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Completed</Badge>;
+                return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">{dict?.dashboard?.admin?.appointments?.completed}</Badge>;
             default:
                 return <Badge variant="secondary">{status}</Badge>;
         }
@@ -33,9 +36,9 @@ function RecentAppointments() {
             <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                     <Calendar className="h-5 w-5 text-primary" />
-                    Recent Appointments
+                    {dict?.dashboard?.admin?.appointments?.title}
                 </CardTitle>
-                <CardDescription>Monitor and manage all patient appointments</CardDescription>
+                <CardDescription>{dict?.dashboard?.admin?.appointments?.subtitle}</CardDescription>
             </CardHeader>
 
             <CardContent>
@@ -43,12 +46,12 @@ function RecentAppointments() {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Patient</TableHead>
-                                <TableHead>Doctor</TableHead>
-                                <TableHead>Date & Time</TableHead>
-                                <TableHead>Reason</TableHead>
-                                <TableHead>Status</TableHead>
-                                <TableHead className="text-right">Actions</TableHead>
+                                <TableHead>{dict?.dashboard?.admin?.appointments?.patient}</TableHead>
+                                <TableHead>{dict?.dashboard?.admin?.appointments?.doctor}</TableHead>
+                                <TableHead>{dict?.dashboard?.admin?.appointments?.dateAndTime}</TableHead>
+                                <TableHead>{dict?.dashboard?.admin?.appointments?.reason}</TableHead>
+                                <TableHead>{dict?.dashboard?.admin?.appointments?.status}</TableHead>
+                                <TableHead className="text-right">{dict?.dashboard?.admin?.appointments?.actions}</TableHead>
                             </TableRow>
                         </TableHeader>
 
@@ -84,7 +87,7 @@ function RecentAppointments() {
                                         </Button>
                                     </TableCell>
                                     <TableCell className="text-right">
-                                        <div className="text-xs text-muted-foreground">Click status to toggle</div>
+                                        <div className="text-xs text-muted-foreground">{dict?.dashboard?.admin?.appointments?.toggleStatus}</div>
                                     </TableCell>
                                 </TableRow>
                             ))}

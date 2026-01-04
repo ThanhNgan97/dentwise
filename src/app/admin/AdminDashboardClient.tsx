@@ -9,8 +9,11 @@ import { useGetDoctors } from "../../hooks/use-doctors";
 import { useUser } from "@clerk/nextjs";
 import { SettingsIcon } from "lucide-react";
 
+import { useLanguage } from "../../lib/language-context";
+
 function AdminDashboardClient() {
     const { user } = useUser();
+    const { dict } = useLanguage();
     const { data: doctors = [], isLoading: doctorsLoading } = useGetDoctors();
     const { data: appointments = [], isLoading: appointmentsLoading } = useGetAppointments();
 
@@ -38,10 +41,10 @@ function AdminDashboardClient() {
                         </div>
                         <div>
                             <h1 className="text-4xl font-bold mb-2">
-                                Welcome back, {user?.firstName || "Admin"}!
+                                {dict?.dashboard?.admin?.welcome}, {user?.firstName || "Admin"}!
                             </h1>
                             <p className="text-muted-foreground">
-                                Manage doctors, oversee appointments, and monitor your dental practice performance.
+                                {dict?.dashboard?.admin?.subtitle}
                             </p>
                         </div>
                     </div>
@@ -71,6 +74,7 @@ function AdminDashboardClient() {
 export default AdminDashboardClient;
 
 function LoadingUI() {
+    const { dict } = useLanguage();
     return (
         <div className="min-h-screen bg-background">
             <Navbar />
@@ -78,7 +82,7 @@ function LoadingUI() {
                 <div className="flex items-center justify-center h-96">
                     <div className="text-center">
                         <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                        <p className="text-muted-foreground">Loading dashboard...</p>
+                        <p className="text-muted-foreground">{dict?.dashboard?.admin?.loading || "Loading..."}</p>
                     </div>
                 </div>
             </div>

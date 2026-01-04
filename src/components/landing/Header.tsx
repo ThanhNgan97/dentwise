@@ -7,6 +7,7 @@ import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@cl
 import Image from 'next/image';
 
 import { useLanguage } from '@/lib/language-context';
+import { LanguageSwitcher } from '../LanguageSwitcher';
 
 function Header() {
     const { language, setLanguage, dict } = useLanguage();
@@ -32,27 +33,6 @@ function Header() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1 mr-2 bg-muted/50 rounded-lg p-1">
-                        <button
-                            onClick={() => setLanguage('en')}
-                            className={`px-2 py-1 text-xs rounded-md transition-all ${language === 'en'
-                                    ? 'bg-background text-foreground shadow-sm'
-                                    : 'text-muted-foreground hover:text-foreground'
-                                }`}
-                        >
-                            EN
-                        </button>
-                        <button
-                            onClick={() => setLanguage('vi')}
-                            className={`px-2 py-1 text-xs rounded-md transition-all ${language === 'vi'
-                                    ? 'bg-background text-foreground shadow-sm'
-                                    : 'text-muted-foreground hover:text-foreground'
-                                }`}
-                        >
-                            VI
-                        </button>
-                    </div>
-
                     <SignInButton mode="modal">
                         <Button variant={"ghost"} size={"sm"}>
                             {dict.header.login}
@@ -61,6 +41,7 @@ function Header() {
                     <SignUpButton mode="modal">
                         <Button size={"sm"}>{dict.header.signUp}</Button>
                     </SignUpButton>
+                    <LanguageSwitcher />
                 </div>
             </div>
         </nav>
