@@ -20,9 +20,9 @@ function AdminDashboardClient() {
     // calculate stats from real data
     const stats = {
         totalDoctors: doctors.length,
-        activeDoctors: doctors.filter((doc) => doc.isActive).length,
+        activeDoctors: doctors.filter((doc: any) => doc.isActive).length,
         totalAppointments: appointments.length,
-        completedAppointments: appointments.filter((app) => app.status === "COMPLETED").length,
+        completedAppointments: appointments.filter((app: any) => app.status === "COMPLETED").length,
     };
 
     if (doctorsLoading || appointmentsLoading) return <LoadingUI />;
